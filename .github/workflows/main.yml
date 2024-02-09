@@ -16,7 +16,7 @@ jobs:
             - name: Calculate new cycle
               id: calculate_day
               run: |
-                start_date="2023-12-29"
+                start_date="2024-02-09"
                 current_date=$(date -u +"%Y-%m-%d")
                 echo "::set-output name=delay::$(date -d "$start_date +28 days" -u +%s)"
 
@@ -24,7 +24,8 @@ jobs:
               run: |
                 current_date=$(date -u +"%Y-%m-%d")
                 delay="${{ steps.calculate_day.outputs.delay}}"
-                if [[ "$delay" - le $(date -d "$current_date" -u +%s) ]]; then
+                if ["$current_date" == "$start_date"]; then
+                    echo "Running"
                     python vrps.py
                 fi
             
