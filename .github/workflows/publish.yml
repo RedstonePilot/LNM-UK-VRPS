@@ -34,7 +34,7 @@ jobs:
                   NEW_NUMBER=$(( ${NUMBER_PARTS[0]} + 1 ))
                 fi
         
-                NEW_TAG="${CURRENT_YEAR}_${NEW_NUMBER}-13"
+                NEW_TAG="${CURRENT_YEAR}_${NEW_NUMBER}"
                 echo "::set-output name=tag::${NEW_TAG}"
 
      
