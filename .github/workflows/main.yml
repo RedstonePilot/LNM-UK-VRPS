@@ -34,5 +34,10 @@ jobs:
                 git config --local user.email "action@github.com"
                 git config --local user.name "GitHub Action"
                 git add .
-                git commit -m "Update CSV"
-                git push
+                if git diff-index --quiet HEAD --; then
+                  echo "No changes to commit"
+                else
+                  git commit -m "Update CSV"
+                  git push
+                fi
+                
