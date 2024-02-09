@@ -47,11 +47,12 @@ jobs:
               with:
                 tag_name: ${{ steps.newtag.outputs.tag }}
                 release_name: VRPS ${{ steps.date.outputs.date }}
+                body: 'Updated for new AIRAC cycle'
                 draft: false
                 prerelease: false
 
-            - name: Upload Release Asset
-              id: upload-release-asset 
+            - name: Upload Release
+              id: upload-release
               uses: actions/upload-release-asset@v1
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
