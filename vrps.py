@@ -50,8 +50,6 @@ def split_coordinates_lat(coord):
  
 def main():
     data = get_data().splitlines()
-    print(data)
-
 
     data.pop(0)
     data = [d.split(",")for d in data if d]
