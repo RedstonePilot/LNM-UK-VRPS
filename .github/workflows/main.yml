@@ -13,16 +13,9 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Calculate new cycle
-              id: calculate_day
-              run: |
-                start_date="2024-02-09"
-                current_date=$(date -u +"%Y-%m-%d")
-                echo "::set-output name=delay::$(date -d "$start_date +28 days" -u +%s)"
-
             - name: Required to update
               run: |
-                start_date="2023-12-29"
+                start_date="2024-01-12"
                 current_date=$(date -u +"%Y-%m-%d")
                 diff_days=$(( ( $(date -u -d "$current_date" +%s) - $(date -u -d "$start_date" +%s) ) / 86400 ))
                 if (( diff_days % 28 == 0 )); then
