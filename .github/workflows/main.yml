@@ -1,4 +1,4 @@
-name: Publish CSV
+name: Generate CSV
 
 on:
     schedule:
