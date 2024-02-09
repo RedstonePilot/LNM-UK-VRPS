@@ -1,0 +1,39 @@
+name: Publish CSV
+
+on:
+    schedule:
+        - cron: "0 0 * * *"
+
+jobs:
+    publish_csv:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Calculate new cycle
+              id: calculate_day
+              run: |
+                start_date="2023-12-29"
+                current_date=$(date -u +"%Y-%m-%d")
+                echo "::set-output name=delay::$(date -d "$start_date +28 days" -u +%s)"
+
+            - name: Time to run 
+              run: |
+                current_date=$(date -u +"%Y-%m-%d")
+                delay="${{ steps.calculate_day.outputs.delay}}"
+                if [[ "$delay" - le $(date -d "$current_date" -u +%s) ]]; then
+                    echo "Time to run"
+                    python vrps.py
+                else
+                    echo "Not time"
+                fi
+            
+            - name: Commit and push changes
+              run: |
+                git config --local user.email "action@github.com"
+                git config --local user.name "GitHub Action"
+                git add .
+                git commit -m "Update CSV"
+                git push
