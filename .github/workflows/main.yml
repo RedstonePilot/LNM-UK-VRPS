@@ -20,13 +20,16 @@ jobs:
                 current_date=$(date -u +"%Y-%m-%d")
                 echo "::set-output name=delay::$(date -d "$start_date +28 days" -u +%s)"
 
-            - name: Time to run 
+            - name: Required to update
               run: |
+                start_date="2023-12-29"
                 current_date=$(date -u +"%Y-%m-%d")
-                delay="${{ steps.calculate_day.outputs.delay}}"
-                if ["$current_date" == "$start_date"]; then
-                    echo "Running"
+                diff_days=$(( ( $(date -u -d "$current_date" +%s) - $(date -u -d "$start_date" +%s) ) / 86400 ))
+                if (( diff_days % 28 == 0 )); then
+                    echo "A multiple of 28 days has elapsed since the start date."
                     python vrps.py
+                else
+                    echo "A multiple of 28 days has not yet elapsed since the start date."
                 fi
             
             - name: Commit and push changes
