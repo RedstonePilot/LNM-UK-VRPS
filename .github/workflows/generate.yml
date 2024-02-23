@@ -1,4 +1,4 @@
-name: Generate CSV
+name: Generate and Publish CSV
 
 on:
     schedule:
@@ -14,7 +14,10 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Update CSV
-              run:  python vrps.py
+              id: update
+              run: |
+                OUTPUT=$(python vrps.py)
+                echo "::set-output name=result::$OUTPUT"
                             
             
             - name: Commit and push changes
