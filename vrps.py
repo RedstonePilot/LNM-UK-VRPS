@@ -61,6 +61,7 @@ def check_if_airac_day():
 def main():
 
     if check_if_airac_day() != 0:
+        print("Not the correct date!")
         return
 
     data = get_data().splitlines()
