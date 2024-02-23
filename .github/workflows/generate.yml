@@ -17,7 +17,7 @@ jobs:
               id: update
               run: |
                 OUTPUT=$(python vrps.py)
-                echo "::set-output name=result::$OUTPUT"
+                echo "result=$OUTPUT" >> $GITHUB_ENV
                             
             
             - name: Commit and push changes
