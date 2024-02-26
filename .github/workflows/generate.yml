@@ -82,6 +82,7 @@ jobs:
   
 
         - name: Gen release
+          if: ${{ steps.output.outputs.result == 'CSV Generated' }}
           id: gen_release
           uses: actions/create-release@v1
           env:
@@ -94,6 +95,7 @@ jobs:
             prerelease: false
 
         - name: Upload Release
+          if: ${{ steps.output.outputs.result == 'CSV Generated' }}
           id: upload-release
           uses: actions/upload-release-asset@v1
           env:
